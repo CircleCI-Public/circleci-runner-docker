@@ -1,0 +1,8 @@
+api:
+  auth_token: API_TOKEN
+runner:
+  name: RUNNER_NAME
+  resource_class: RESOURCE_CLASS
+  command_prefix: ["/opt/circleci/launch-task"]
+  working_directory: /opt/circleci/workdir/%s
+  cleanup_working_directory: true
