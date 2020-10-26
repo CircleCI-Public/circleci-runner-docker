@@ -18,11 +18,11 @@ sha256sum --check --ignore-missing checksums.txt && chmod +x "$file"; mv "$file"
 id -u circleci &>/dev/null || adduser --uid 1500 --disabled-password --gecos GECOS circleci
 chown -R circleci /opt/circleci/workdir
 
-if [[ -z "${API_TOKEN}" ]]; then
+if [[ -z "${CIRCLECI_API_TOKEN}" ]]; then
   echo "No API token supplied; exiting"
   exit 1
 else
-  sed -i s/API_TOKEN/${API_TOKEN}/ /opt/circleci/launch-agent-config.yaml
+  sed -i s/API_TOKEN/${CIRCLECI_API_TOKEN}/ /opt/circleci/launch-agent-config.yaml
 fi
 
 sed -i s/RUNNER_NAME/$(hostname)/ /opt/circleci/launch-agent-config.yaml

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -euo pipefail
-var=`cat`
 ## This script launches the build-agent using systemd-run in order to create a
 ## cgroup which will capture all child processes so they're cleaned up correctly
 ## on exit.
