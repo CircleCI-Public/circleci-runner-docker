@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
 COPY --chown=root:root start.sh /root/start.sh
 COPY --chown=root:root launch-task /opt/circleci/launch-task
 COPY --chown=root:root launch-agent-config.yaml /opt/circleci/launch-agent-config.yaml
+
 RUN chmod 600 /opt/circleci/launch-agent-config.yaml && \
                                         chmod 755 /opt/circleci/launch-task && \
                                         chmod +x /root/start.sh && \

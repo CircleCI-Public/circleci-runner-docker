@@ -22,9 +22,11 @@ if [[ -z "${CIRCLECI_API_TOKEN}" ]]; then
   echo "No API token supplied; exiting"
   exit 1
 else
-  sed -i s/API_TOKEN/${CIRCLECI_API_TOKEN}/ /opt/circleci/launch-agent-config.yaml
+  sed -i s/CIRCLECI_API_TOKEN/${CIRCLECI_API_TOKEN}/ /opt/circleci/launch-agent-config.yaml
 fi
 
-sed -i s/RUNNER_NAME/$(hostname)/ /opt/circleci/launch-agent-config.yaml
+sed -i s/CIRCLECI_RUNNER_NAME/$(hostname)/ /opt/circleci/launch-agent-config.yaml
+
+sed -i s=CIRCLECI_RESOURCE_CLASS=${CIRCLECI_RESOURCE_CLASS}= /opt/circleci/launch-agent-config.yaml
 
 /opt/circleci/circleci-launch-agent --config /opt/circleci/launch-agent-config.yaml
