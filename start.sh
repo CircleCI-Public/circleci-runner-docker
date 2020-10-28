@@ -27,6 +27,6 @@ fi
 
 sed -i s/CIRCLECI_RUNNER_NAME/$(hostname)/ /opt/circleci/launch-agent-config.yaml
 
-sed -i s/CIRCLECI_RESOURCE_CLASS/${CIRCLECI_RESOURCE_CLASS}/ /opt/circleci/launch-agent-config.yaml
+sed -i s=CIRCLECI_RESOURCE_CLASS=${CIRCLECI_RESOURCE_CLASS}= /opt/circleci/launch-agent-config.yaml
 
 /opt/circleci/circleci-launch-agent --config /opt/circleci/launch-agent-config.yaml
