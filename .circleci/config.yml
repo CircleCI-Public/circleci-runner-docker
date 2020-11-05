@@ -2,7 +2,6 @@ version: 2.1
 
 workflows:
   launch-agent:
-    # Always runs. When the master branch runs, publishes the `edge` Docker tag
     jobs:
       - launch-agent-test
       - launch-agent-build-and-publish:
@@ -10,7 +9,7 @@ workflows:
             - launch-agent-test
           filters:
             branches:
-              only: master
+              only: main
           context: runner-publishing
 
 jobs:
