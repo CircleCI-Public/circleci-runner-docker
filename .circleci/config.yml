@@ -1,0 +1,44 @@
+version: 2.1
+
+workflows:
+  launch-agent:
+    # Always runs. When the master branch runs, publishes the `edge` Docker tag
+    jobs:
+      - launch-agent-test
+      - launch-agent-build-and-publish:
+          requires:
+            - launch-agent-test
+          filters:
+            branches:
+              only: master
+          context: runner-publishing
+
+jobs:
+  launch-agent-test:
+    docker:
+      - image: cibuilds/docker:19.03
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Build Dockerfiles"
+          working_directory: ./launch-agent
+          command: |
+            docker build --file Dockerfile -t circleci/runner:launch-agent .
+
+  launch-agent-build-and-publish:
+    docker:
+      - image: cibuilds/docker:19.03
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Build & Tag Images"
+          working_directory: ./launch-agent
+          command: |
+            docker build --file Dockerfile -t circleci/runner:launch-agent .
+      - deploy:
+          name: "Publish Docker Image"
+          command: |
+            echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+            docker push circleci/runner:launch-agent
