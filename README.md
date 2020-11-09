@@ -11,7 +11,7 @@ In the future a variant will be added that runs the `launch-agent` runs on the h
 This image can be used a host with docker installed:
 
 ```bash
-docker run --env CIRCLECI_API_TOKEN=<runner-token> --env CIRCLECI_RESOURCE_CLASS=<resource-class> --name <container-name> circleci/runner:launch-agent
+CIRCLECI_RESOURCE_CLASS=<resource-class> CIRCLECI_API_TOKEN=<runner-token> docker run --env CIRCLECI_API_TOKEN --env CIRCLECI_RESOURCE_CLASS --name <container-name> circleci/runner:launch-agent
 ```
 
 ## Contributing
