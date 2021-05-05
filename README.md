@@ -16,7 +16,7 @@ CIRCLECI_RESOURCE_CLASS=<resource-class> CIRCLECI_API_TOKEN=<runner-token> docke
 
 ## Contributing
 
-We encourage [issues](https://github.com/CircleCI-Public/runner-preview-docs/issues) and [pull requests](https://github.com/CircleCI-Public/runner-preview-docs/pulls) against this repository.
+We encourage [issues](https://github.com/CircleCI-Public/circleci-runner-docker/issues) and [pull requests](https://github.com/CircleCI-Public/circleci-runner-docker/pulls) against this repository.
 
 ## Additional Resources
 
@@ -33,6 +33,6 @@ We currently do not support orchestrators such as [Nomad][] or [AWS Fargate][] n
 This repository is licensed under the MIT license.
 The license can be found [here](./LICENSE).
 
-[runner]: https://github.com/CircleCI-Public/runner-preview-docs/
+[runner]: https://github.com/CircleCI-Public/circleci-runner-docker/
 [Nomad]: https://www.nomadproject.io/
 [AWS Fargate]: https://aws.amazon.com/fargate
