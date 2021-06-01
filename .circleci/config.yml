@@ -11,6 +11,13 @@ workflows:
             branches:
               only: main
           context: runner-publishing
+      - launch-agent-dev-build-and-publish:
+          requires:
+            - launch-agent-test
+          filters:
+            branches:
+              only: main
+          context: runner-publishing
 
 jobs:
   launch-agent-test:
@@ -41,3 +48,20 @@ jobs:
           command: |
             echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
             docker push circleci/runner:launch-agent
+            
+  launch-agent-dev-build-and-publish:
+    docker:
+      - image: cibuilds/docker:19.03
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "Build & Tag Images"
+          working_directory: ./launch-agent
+          command: |
+            docker build --file Dockerfile.dev -t circleci/runner:dev .
+      - deploy:
+          name: "Publish Docker Image"
+          command: |
+            echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+            docker push circleci/runner:dev
