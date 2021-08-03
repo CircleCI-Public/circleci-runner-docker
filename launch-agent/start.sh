@@ -3,7 +3,7 @@ prefix=/opt/circleci
 mkdir -p "$prefix/workdir"
 base_url="https://circleci-binary-releases.s3.amazonaws.com/circleci-launch-agent"
 echo "Determining latest version of CircleCI Launch Agent"
-agent_version=$(curl "$base_url/release.txt")
+agent_version=${agent_version:-$(curl "$base_url/release.txt")}
 echo "Using CircleCI Launch Agent version $agent_version"
 echo "Downloading and verifying CircleCI Launch Agent Binary"
 curl -sSL "$base_url/$agent_version/checksums.txt" -o checksums.txt
