@@ -11,7 +11,7 @@ set -euo pipefail
 # Give the transient systemd unit an inteligible name
 # unit="circleci-$CIRCLECI_LAUNCH_ID"
 
-sudo -H -u circleci $@
+sudo -H -u circleci "$@"
 # When this process exits, tell the systemd unit to shut down
 # abort() {
 #   systemctl stop "$unit"

@@ -3,6 +3,7 @@ api:
 runner:
   name: CIRCLECI_RUNNER_NAME
   resource_class: CIRCLECI_RESOURCE_CLASS
-  command_prefix: ["/opt/circleci/launch-task"]
+  command_prefix: ["/opt/circleci/launch-task.sh"]
   working_directory: /opt/circleci/workdir/%s
+  disable_auto_update: true
   cleanup_working_directory: true
