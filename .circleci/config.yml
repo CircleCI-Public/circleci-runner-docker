@@ -1,5 +1,12 @@
 version: 2.1
 
+parameters:
+  agent_version:
+    type: string
+    description: version of launch-agent to build into Docker image (e.g. 1.0.16645-31711f7); use latest if not specified
+    default: ""
+
+
 workflows:
   launch-agent:
     jobs:
@@ -10,34 +17,57 @@ workflows:
           filters:
             branches:
               only: main
-          context: runner-publishing
+          context: cimg-publishing
 
 jobs:
   launch-agent-test:
     docker:
-      - image: cibuilds/docker:19.03
+      - image: cimg/base:stable-20.04
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.7
       - run:
-          name: "Build Dockerfiles"
+          name: "Build Docker image"
           working_directory: ./launch-agent
           command: |
-            docker build --file Dockerfile -t circleci/runner:launch-agent .
+            latest_version=`./get-latest-agent-version.sh`
+            if [ -z "<< pipeline.parameters.agent_version >>" ]; then
+              agent_version="$latest_version"
+            else
+              agent_version="<< pipeline.parameters.agent_version >>"
+            fi
+            echo "agent_version is $agent_version"
+            docker build --build-arg agent_version=$agent_version --file Dockerfile -t circleci/runner:testing .
 
   launch-agent-build-and-publish:
     docker:
-      - image: cibuilds/docker:19.03
+      - image: cimg/base:stable-20.04
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.7
       - run:
-          name: "Build & Tag Images"
+          name: "Build & Tag Docker Image"
           working_directory: ./launch-agent
           command: |
-            docker build --file Dockerfile -t circleci/runner:launch-agent .
+            latest_version=`./get-latest-agent-version.sh`
+            if [ -z "<< pipeline.parameters.agent_version >>" ]; then
+              agent_version=$latest_version
+            else
+              agent_version="<< pipeline.parameters.agent_version >>"
+            fi
+
+            tags="-t circleci/runner:$agent_version"
+
+            # if using the latest agent, also apply the "runner" tag
+            if [ "$agent_version" = "$latest_version" ]; then
+              tags="$tags -t circleci/runner:runner"
+            fi
+
+            docker build --build-arg agent_version=$agent_version --file Dockerfile $tags .
       - deploy:
           name: "Publish Docker Image"
           command: |
             echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
-            docker push circleci/runner:launch-agent
+            docker push circleci/runner --all-tags
