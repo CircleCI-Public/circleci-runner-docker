@@ -1,14 +1,21 @@
 #!/bin/bash
 prefix=/opt/circleci
-if [[ -z "${CIRCLECI_API_TOKEN}" ]]; then
+if [ -z "${CIRCLECI_API_TOKEN}" -a -z "${LAUNCH_AGENT_API_AUTH_TOKEN}" ]; then
   echo "No API token supplied; exiting"
   exit 1
-else
-  sed -i s/CIRCLECI_API_TOKEN/"${CIRCLECI_API_TOKEN}"/ $prefix/launch-agent-config.yaml
 fi
 
-sed -i s/CIRCLECI_RUNNER_NAME/"$(hostname)"/ $prefix/launch-agent-config.yaml
+if [[ -z "${LAUNCH_AGENT_API_AUTH_TOKEN}" ]]; then
+  export LAUNCH_AGENT_API_AUTH_TOKEN=$CIRCLECI_API_TOKEN
+fi
 
-sed -i s=CIRCLECI_RESOURCE_CLASS="${CIRCLECI_RESOURCE_CLASS}"= $prefix/launch-agent-config.yaml
+if [[ -z "${LAUNCH_AGENT_RUNNER_NAME}" ]]; then
+  export LAUNCH_AGENT_RUNNER_NAME=$(hostname)
+fi
 
-exec $prefix/circleci-launch-agent --config $prefix/launch-agent-config.yaml
+export LAUNCH_AGENT_RUNNER_COMMAND_PREFIX='["/opt/circleci/launch-task.sh"]'
+export LAUNCH_AGENT_RUNNER_WORK_DIR="/opt/circleci/workdir/%s"
+export LAUNCH_AGENT_RUNNER_DISABLE_AUTO_UPDATE=true
+export LAUNCH_AGENT_RUNNER_CLEANUP_WORK_DIR=true
+
+exec $prefix/circleci-launch-agent --env
