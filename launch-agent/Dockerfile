@@ -1,20 +1,14 @@
 FROM ubuntu:20.04
 
 ARG agent_version
+ARG TARGETPLATFORM
 
-RUN apt-get update && apt-get install -y \
-                                        curl \
-                                        gzip \
-                                        sudo \
-                                        wget \
-                                        apt-transport-https \
-                                        unzip \
-                                        jq && \
-                                        rm -rf /var/lib/apt/lists/*
+RUN apt update 
+RUN apt install -y curl gzip sudo wget apt-transport-https unzip jq
+RUN rm -rf /var/lib/apt/lists/*
 
 COPY --chown=root:root init-launch-agent.sh /root/init-launch-agent.sh
-RUN chmod +x /root/init-launch-agent.sh
-RUN /root/init-launch-agent.sh $agent_version
+RUN /bin/bash /root/init-launch-agent.sh $agent_version $TARGETPLATFORM
 
 COPY --chown=root:root start.sh /root/start.sh
 COPY --chown=root:root launch-task.sh /opt/circleci/launch-task.sh
