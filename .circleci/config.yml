@@ -6,7 +6,6 @@ parameters:
     description: version of launch-agent to build into Docker image (e.g. 1.0.16645-31711f7); use latest if not specified
     default: ""
 
-
 workflows:
   launch-agent:
     jobs:
@@ -27,8 +26,9 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 20.10.7
+      - initialize_multiarch_builder
       - run:
-          name: "Build Docker image"
+          name: "Build Docker images"
           working_directory: ./launch-agent
           command: |
             latest_version=`./get-latest-agent-version.sh`
@@ -38,7 +38,8 @@ jobs:
               agent_version="<< pipeline.parameters.agent_version >>"
             fi
             echo "agent_version is $agent_version"
-            docker build --build-arg agent_version=$agent_version --file Dockerfile -t circleci/runner:testing .
+            # We have to push with buildx for now, so that we can use it's multiarch manifest support https://www.docker.com/blog/multi-arch-images/
+            docker buildx build --platform linux/arm64,linux/amd64 --build-arg agent_version=$agent_version --file Dockerfile -t circleci/runner:testing .
 
   launch-agent-build-and-publish:
     docker:
@@ -47,8 +48,9 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 20.10.7
+      - initialize_multiarch_builder
       - run:
-          name: "Build & Tag Docker Image"
+          name: "Build, Tag, and Push Docker Image Manifests"
           working_directory: ./launch-agent
           command: |
             latest_version=`./get-latest-agent-version.sh`
@@ -64,10 +66,19 @@ jobs:
             if [ "$agent_version" = "$latest_version" ]; then
               tags="$tags -t circleci/runner:runner"
             fi
-
-            docker build --build-arg agent_version=$agent_version --file Dockerfile $tags .
-      - deploy:
-          name: "Publish Docker Image"
-          command: |
+            
             echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
-            docker push circleci/runner --all-tags
+            # We have to push with buildx for now, so that we can use it's multiarch manifest support https://www.docker.com/blog/multi-arch-images/
+            docker buildx build --platform linux/amd64,linux/arm64 --build-arg agent_version=$agent_version --file Dockerfile $tags --push . 
+
+
+commands:
+  initialize_multiarch_builder:
+    description: "Initialize a docker build for multi-architecture image manifests"
+    steps:
+      - run: "docker context create remote-context"
+      - run: "docker buildx create remote-context --name multi-arch-builder"
+      - run: "docker buildx use multi-arch-builder"
+      # make sure qemu emulators are installed
+      # The tonistiigi/binfmt image is what's recommended from the docker docs https://docs.docker.com/buildx/working-with-buildx/#build-multi-platform-images
+      - run: "docker run -it --rm --privileged tonistiigi/binfmt --install arm64"

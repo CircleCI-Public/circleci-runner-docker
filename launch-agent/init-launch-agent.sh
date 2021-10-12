@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+target_platform="$2"
+
 if [ -z "${1-}" ]; then
   echo "Launch-agent version must be specified."
   exit 1
@@ -14,10 +16,10 @@ mkdir -p "$prefix/workdir"
 
 echo "Downloading and verifying CircleCI Launch Agent Binary"
 curl -sSL "$base_url/$agent_version/checksums.txt" -o checksums.txt
-IFS=" " read -r -a selected <<< "$(grep -F "linux/amd64" checksums.txt)"
+IFS=" " read -r -a selected <<< "$(grep -F "$target_platform" checksums.txt)"
 
 file=${selected[1]:1}
-mkdir -p "linux/amd64"
+mkdir -p "$target_platform"
 echo "Downloading CircleCI Launch Agent: $file"
 curl --compressed -L "$base_url/$agent_version/$file" -o "$file"
 
