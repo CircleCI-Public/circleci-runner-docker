@@ -13,7 +13,6 @@ if [[ -z "${LAUNCH_AGENT_RUNNER_NAME}" ]]; then
   export LAUNCH_AGENT_RUNNER_NAME=$(hostname)
 fi
 
-export LAUNCH_AGENT_RUNNER_COMMAND_PREFIX='["/opt/circleci/launch-task.sh"]'
 export LAUNCH_AGENT_RUNNER_WORK_DIR="/opt/circleci/workdir/%s"
 export LAUNCH_AGENT_RUNNER_DISABLE_AUTO_UPDATE=true
 export LAUNCH_AGENT_RUNNER_CLEANUP_WORK_DIR=true
