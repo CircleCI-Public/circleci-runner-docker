@@ -30,7 +30,7 @@ We currently do not support orchestrators such as [Nomad][] or [AWS Fargate][] n
 
 ## License
 
-This repository is licensed under the MIT license.
+This repository is licensed under the Apache 2.0 license.
 The license can be found [here](./LICENSE).
 
 [runner]: https://github.com/CircleCI-Public/circleci-runner-docker/
