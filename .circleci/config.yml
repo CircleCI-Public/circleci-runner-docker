@@ -38,7 +38,7 @@ jobs:
               agent_version="<< pipeline.parameters.agent_version >>"
             fi
             echo "agent_version is $agent_version"
-            # We have to push with buildx for now, so that we can use it's multiarch manifest support https://www.docker.com/blog/multi-arch-images/
+            # We have to push with buildx for now, so that we can use it's multiarch manifest support https://www.docker.com/blog/multi-arch-images/ 
             docker buildx build --platform linux/arm64,linux/amd64 --build-arg agent_version=$agent_version --file Dockerfile -t circleci/runner:testing .
 
   launch-agent-build-and-publish:
@@ -64,7 +64,7 @@ jobs:
 
             # if using the latest agent, also apply the "runner" tag
             if [ "$agent_version" = "$latest_version" ]; then
-              tags="$tags -t circleci/runner:runner"
+              tags="$tags -t circleci/runner:launch-agent"
             fi
             
             echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
