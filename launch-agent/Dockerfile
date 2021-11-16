@@ -14,6 +14,8 @@ RUN addgroup --gid ${GID} circleci && \
 RUN mkdir -p /opt/circleci/workdir
 RUN chown -R circleci:circleci /opt/circleci
 
+RUN echo "circleci ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/circleci
+
 USER circleci
 
 COPY --chown=circleci:circleci init-launch-agent.sh /opt/circleci/init-launch-agent.sh
