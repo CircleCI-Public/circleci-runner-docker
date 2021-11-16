@@ -15,6 +15,7 @@ RUN mkdir -p /opt/circleci/workdir
 RUN chown -R circleci:circleci /opt/circleci
 
 RUN echo "circleci ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/circleci
+RUN echo "DEBIAN_FRONTEND=noninteractive" > /etc/environment
 
 USER circleci
 
