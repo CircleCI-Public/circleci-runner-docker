@@ -20,13 +20,14 @@ We encourage [issues](https://github.com/CircleCI-Public/circleci-runner-docker/
 
 ## Additional Resources
 
+- [Dockerhub Repository](https://hub.docker.com/r/circleci/runner) - DockerHub repository for the runner image
 - [CircleCI Docs](https://circleci.com/docs/) - The official CircleCI Documentation website.
-- [Runner Preview Docs][runner]
+- [Runner Docs][https://circleci.com/docs/2.0/runner-overview/]
 - [Docker Docs](https://docs.docker.com/)
 
 ## Container orchestrators
 
-We currently do not support orchestrators such as [Nomad][] or [AWS Fargate][] natively, although `circleci/runner` can be used as a base to develop a custom solution.
+We support running `launch-agent` in [Kubernetes](https://kubernetes.io/)([docs](https://circleci.com/docs/2.0/runner-on-kubernetes/)). Other container orchestrators are not supported at this time
 
 ## License
 
