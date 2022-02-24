@@ -22,7 +22,7 @@ We encourage [issues](https://github.com/CircleCI-Public/circleci-runner-docker/
 
 - [Dockerhub Repository](https://hub.docker.com/r/circleci/runner) - DockerHub repository for the runner image
 - [CircleCI Docs](https://circleci.com/docs/) - The official CircleCI Documentation website.
-- [Runner Docs][https://circleci.com/docs/2.0/runner-overview/]
+- [Runner Docs](https://circleci.com/docs/2.0/runner-overview/)
 - [Docker Docs](https://docs.docker.com/)
 
 ## Container orchestrators
