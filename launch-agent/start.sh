@@ -13,8 +13,14 @@ if [[ -z "${LAUNCH_AGENT_RUNNER_NAME}" ]]; then
   export LAUNCH_AGENT_RUNNER_NAME=$(hostname)
 fi
 
-export LAUNCH_AGENT_RUNNER_WORK_DIR="/opt/circleci/workdir/%s"
+if [[ -z "${LAUNCH_AGENT_RUNNER_WORK_DIR}" ]]; then
+  export LAUNCH_AGENT_RUNNER_WORK_DIR="/opt/circleci/workdir/%s"
+fi
+
+if [[ -z "${LAUNCH_AGENT_RUNNER_CLEANUP_WORK_DIR}" ]]; then
+  export LAUNCH_AGENT_RUNNER_CLEANUP_WORK_DIR=true
+fi
+
 export LAUNCH_AGENT_RUNNER_DISABLE_AUTO_UPDATE=true
-export LAUNCH_AGENT_RUNNER_CLEANUP_WORK_DIR=true
 
 exec $prefix/circleci-launch-agent
