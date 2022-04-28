@@ -18,6 +18,8 @@ CIRCLECI_RESOURCE_CLASS=<resource-class> CIRCLECI_API_TOKEN=<runner-token> docke
 
 We encourage [issues](https://github.com/CircleCI-Public/circleci-runner-docker/issues) and [pull requests](https://github.com/CircleCI-Public/circleci-runner-docker/pulls) against this repository.
 
+For new feature requests, we encourage [Canny ideas](https://circleci.canny.io/runner-feature-requests).
+
 ## Additional Resources
 
 - [Dockerhub Repository](https://hub.docker.com/r/circleci/runner) - DockerHub repository for the runner image
