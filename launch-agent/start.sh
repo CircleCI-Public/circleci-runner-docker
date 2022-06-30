@@ -14,7 +14,7 @@ if [[ -z "${LAUNCH_AGENT_RUNNER_NAME}" ]]; then
 fi
 
 if [[ -z "${LAUNCH_AGENT_RUNNER_WORK_DIR}" ]]; then
-  export LAUNCH_AGENT_RUNNER_WORK_DIR="/opt/circleci/workdir/%s"
+  export LAUNCH_AGENT_RUNNER_WORK_DIR="/var/opt/circleci/workdir"
 fi
 
 if [[ -z "${LAUNCH_AGENT_RUNNER_CLEANUP_WORK_DIR}" ]]; then
