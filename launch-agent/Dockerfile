@@ -11,8 +11,8 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN addgroup --gid ${GID} circleci && \
     adduser --uid ${UID} --ingroup circleci --disabled-password --gecos GECOS circleci
-RUN mkdir -p /opt/circleci/workdir
-RUN chown -R circleci:circleci /opt/circleci
+RUN mkdir -p /var/opt/circleci/workdir
+RUN chown -R circleci:circleci /var/opt/circleci
 
 RUN echo "circleci ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/circleci
 RUN echo "DEBIAN_FRONTEND=noninteractive" > /etc/environment
