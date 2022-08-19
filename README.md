@@ -1,5 +1,8 @@
 # CircleCI runner images
 
+**CircleCI has a new [container runner](https://circleci.com/docs/container-runner) in open preview.**  If you're looking for a way to run jobs in containers similar to how CircleCI Cloud runs jobs with its [Docker executor](https://circleci.com/docs/using-docker), use the container runner.
+
+
 `circleci/runner` image is created by CircleCI to be with the [runner][] feature.
 
 Currently the `launch-agent` tag can be used to run the launch-agent in a container colocated with the CircleCI job, i.e. the job will run inside the same container.
@@ -24,7 +27,7 @@ For new feature requests, we encourage [Canny ideas](https://circleci.canny.io/r
 
 - [Dockerhub Repository](https://hub.docker.com/r/circleci/runner) - DockerHub repository for the runner image
 - [CircleCI Docs](https://circleci.com/docs/) - The official CircleCI Documentation website.
-- [Runner Docs](https://circleci.com/docs/2.0/runner-overview/)
+- [Runner Docs](https://circleci.com/docs/2.0/runner-overview)
 - [Docker Docs](https://docs.docker.com/)
 
 ## Container orchestrators
