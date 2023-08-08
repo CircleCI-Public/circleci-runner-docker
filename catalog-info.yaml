@@ -11,7 +11,7 @@ metadata:
     - url: "slack://channel?team=S01FY3NF31V&id=CAT9Q7TGW"
       title: Server Slack channel
       icon: chat
-    - url: "https://github.com/CircleCI-Public/circleci-runner-docker/blob/onprem-45/README.md"
+    - url: "https://github.com/CircleCI-Public/circleci-runner-docker/blob/main/README.md"
       title: Documentation
       icon: docs
   tags:
