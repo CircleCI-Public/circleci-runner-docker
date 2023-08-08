@@ -5,7 +5,7 @@ metadata:
   description: https://github.com/CircleCI-Public/circleci-runner-docker/blob/onprem-45/README.md
   annotations:
     circleci.com/project-slug: github/CircleCI-Public/circleci-runner-docker
-    jira/project-key: ON-PREM
+    jira/project-key: ONPREM
     pagerduty.com/service-id: PM7SMHG
   links:
     - url: "slack://channel?team=S01FY3NF31V&id=CAT9Q7TGW"
