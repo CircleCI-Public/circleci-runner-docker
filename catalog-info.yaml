@@ -8,8 +8,8 @@ metadata:
     jira/project-key: ONPREM
     pagerduty.com/service-id: PM7SMHG
   links:
-    - url: "slack://channel?team=S01FY3NF31V&id=CAT9Q7TGW"
-      title: Server Slack channel
+    - url: "slack://channel?team=T02519B3Z&id=CKCV4LZ8V"
+      title: Runner Slack channel
       icon: chat
     - url: "https://github.com/CircleCI-Public/circleci-runner-docker/blob/main/README.md"
       title: Documentation
