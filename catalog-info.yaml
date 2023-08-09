@@ -1,0 +1,24 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: circleci-runner-docker
+  description: https://github.com/CircleCI-Public/circleci-runner-docker/blob/onprem-45/README.md
+  annotations:
+    circleci.com/project-slug: github/CircleCI-Public/circleci-runner-docker
+    jira/project-key: ONPREM
+    pagerduty.com/service-id: PM7SMHG
+  links:
+    - url: "slack://channel?team=T02519B3Z&id=CKCV4LZ8V"
+      title: Runner Slack channel
+      icon: chat
+    - url: "https://github.com/CircleCI-Public/circleci-runner-docker/blob/main/README.md"
+      title: Documentation
+      icon: docs
+  tags:
+    - runner
+    - onprem
+    - docker
+spec:
+  type: service
+  lifecycle: production
+  owner: on-prem
