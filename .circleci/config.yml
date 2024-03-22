@@ -16,7 +16,7 @@ workflows:
           filters:
             branches:
               only: main
-          context: cimg-publishing
+          context: cimg-docker-image-publishing
 
 jobs:
   launch-agent-test:
